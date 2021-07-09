@@ -15,12 +15,12 @@ class Server {
         this.server = require('http').createServer( this.app );
         this.io     = require('socket.io')( this.server );
 
+        this.paths = {  // Aqui se colocan las direcciones de los endpoints en caso de requerirlos
+            auth:       '/api/chat/auth'
+        };
+
         // Conectar a la base de datos
         this.dbConnection();
-
-        this.paths = {      // Aqui se colocan las direcciones de los endpoints en caso de requerirlos
-            
-        }
 
         // Middlewares
         this.middlewares();
@@ -41,6 +41,9 @@ class Server {
         // CORS
         this.app.use( cors() );
 
+        // Lectura y parseo del body
+        this.app.use( express.json() );
+
         // Directorio público
         this.app.use( express.static('public') );
 
@@ -48,7 +51,7 @@ class Server {
 
     routes(){
         // Se usa un middleware para cargar ciertas rutas dependiendo de una ruta inicial
-        // Ejemplo: this.app.use( this.paths.auth,       require('../routes/auth') );
+        this.app.use( this.paths.auth, require('../routes/chat_auth') );
     }
 
     sockets(){
