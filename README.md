@@ -1,6 +1,6 @@
-# **Band names web sockets**
+# **ChatApp backend**
 
-Implementación de un server usando sockets para comunicación con una app flutter
+Implementación de un server usando rest api y comunicación por sockets para una app en flutter
 
 ### **Configuraciones necesarias**
 
@@ -8,11 +8,17 @@ Implementación de un server usando sockets para comunicación con una app flutt
 
 * Crear el archivo .env en el directorio raíz del proyecto y asignar:
     * El puerto a usar
+    * El enlace para la conexión a la base de datos en la nube
+    * El password firma para el JWT
 
 Ejemplo:
 ```
 PORT=8080
+MONGODB_CNN=mongodb+srv://{MyUserName}:{MyPassword}@miclustercafe.noxip.mongodb.net/{myDbName}
+SECRETORPRIVATEKEY=MyUltraSecretPassword
 ```
+
+* No olvidar agregar las ip de conexión deseadas a la lista blanca de la base de datos de mongo
 
 ### **Documentación usada**
 
