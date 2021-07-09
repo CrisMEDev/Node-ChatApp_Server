@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 
+const { dbConnection } = require('../database/config');
 const { socketController } = require('../sockets/controller');
+
 
 class Server {
 
@@ -12,6 +14,9 @@ class Server {
         // Agregando socket.io
         this.server = require('http').createServer( this.app );
         this.io     = require('socket.io')( this.server );
+
+        // Conectar a la base de datos
+        this.dbConnection();
 
         this.paths = {      // Aqui se colocan las direcciones de los endpoints en caso de requerirlos
             
@@ -25,6 +30,10 @@ class Server {
 
         // Sockets
         this.sockets();
+    }
+
+    async dbConnection(){
+        await dbConnection();
     }
 
     middlewares(){
