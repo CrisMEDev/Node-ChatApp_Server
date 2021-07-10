@@ -1,6 +1,7 @@
 const { Socket } = require('socket.io');
 
 const comprobarJWT = require('../helpers/comprobar-jwt');
+const { usuarioConectado, usuarioDesconectado } = require('./services/usuario');
 
 
 const socketController = ( socket = new Socket ) => {
@@ -10,11 +11,17 @@ const socketController = ( socket = new Socket ) => {
     
     if ( !valido ) { return socket.disconnect(); }  // Si no hay token válido, corta la conexión
 
-    console.log( 'Conectado: ', socket.id );
+    // Cliente autenticado
+    const usuario = usuarioConectado( uid );
+    console.log(usuario);
+
+
+    // console.log( 'Conectado: ', socket.id );
 
     socket.on('disconnect', () => {
 
-        console.log( 'Desconectado: ', socket.id );
+        // console.log( 'Desconectado: ', socket.id );
+        usuarioDesconectado( uid );
 
     });
 
