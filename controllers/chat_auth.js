@@ -30,7 +30,7 @@ const crearUsuario = async( req = request, res = response ) => {
         // Generar JWT
         const token = await generarJWT( usuario._id );
         
-        res.json({
+        res.status(201).json({
             usuario,
             token
         });
@@ -97,13 +97,20 @@ const renewToken = async( req = request, res = response ) => {
 
     const usuario = req.usuario;
 
-    // Generar JWT
-    const token = await generarJWT( usuario._id );
+    try {
+        // Generar JWT
+        const token = await generarJWT( usuario._id );
 
-    res.json({
-        usuario,
-        token
-    });
+        res.json({
+            usuario,
+            token
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Algo salió mal, contacte con su administrador'
+        });
+    }
 
 }
 
