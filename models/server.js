@@ -16,7 +16,8 @@ class Server {
         this.io     = require('socket.io')( this.server );
 
         this.paths = {  // Aqui se colocan las direcciones de los endpoints en caso de requerirlos
-            auth:       '/api/chat/auth'
+            auth:       '/api/chat/auth',
+            usuarios:   '/api/usuarios'
         };
 
         // Conectar a la base de datos
@@ -52,6 +53,7 @@ class Server {
     routes(){
         // Se usa un middleware para cargar ciertas rutas dependiendo de una ruta inicial
         this.app.use( this.paths.auth, require('../routes/chat_auth') );
+        this.app.use( this.paths.usuarios, require('../routes/usuarios') );
     }
 
     sockets(){
