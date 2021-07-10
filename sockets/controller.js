@@ -1,7 +1,14 @@
-const { Socket } = require("socket.io");
+const { Socket } = require('socket.io');
+
+const comprobarJWT = require('../helpers/comprobar-jwt');
 
 
 const socketController = ( socket = new Socket ) => {
+
+    // Se obtiene el token de la conexión por socket para verificar si es un usario válido
+    const [ valido, uid ] = comprobarJWT( socket.handshake.headers['x-token'] );
+    
+    if ( !valido ) { return socket.disconnect(); }  // Si no hay token válido, corta la conexión
 
     console.log( 'Conectado: ', socket.id );
 
