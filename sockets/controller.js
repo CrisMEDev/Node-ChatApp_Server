@@ -2,6 +2,7 @@ const { Socket } = require('socket.io');
 
 const comprobarJWT = require('../helpers/comprobar-jwt');
 const { usuarioConectado, usuarioDesconectado } = require('./services/usuario');
+const { grabarMensaje } = require('./services/mensaje');
 
 
 const socketController = ( socket = new Socket ) => {
@@ -18,7 +19,11 @@ const socketController = ( socket = new Socket ) => {
     socket.join( uid );
 
     // Escuchar del cliente el mensaje que quiere comunicar
-    socket.on( 'mensaje-personal', ( payload ) => {
+    socket.on( 'mensaje-personal', async( payload ) => {
+
+        // Guardar en DB
+        await grabarMensaje( payload );
+
         // Enviar mensaje de vuelta al frontend para el usuario específico
         socket.to( payload.para ).emit( 'mensaje-personal', payload );
     });
