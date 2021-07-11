@@ -14,6 +14,13 @@ const socketController = ( socket = new Socket ) => {
     // Cliente autenticado
     usuarioConectado( uid );
 
+    // Ingresar al usuario a una sala específica con el id del receptor del mensaje
+    socket.join( uid );
+
+    // Escuchar del cliente el mensaje que quiere comunicar
+    socket.on( 'mensaje-personal', ( payload ) => {
+        console.log(payload);
+    });
 
     // console.log( 'Conectado: ', socket.id );
 
