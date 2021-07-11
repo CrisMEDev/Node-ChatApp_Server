@@ -19,7 +19,8 @@ const socketController = ( socket = new Socket ) => {
 
     // Escuchar del cliente el mensaje que quiere comunicar
     socket.on( 'mensaje-personal', ( payload ) => {
-        console.log(payload);
+        // Enviar mensaje de vuelta al frontend para el usuario específico
+        socket.to( payload.para ).emit( 'mensaje-personal', payload );
     });
 
     // console.log( 'Conectado: ', socket.id );
