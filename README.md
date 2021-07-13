@@ -20,6 +20,10 @@ SECRETORPRIVATEKEY=MyUltraSecretPassword
 
 * No olvidar agregar las ip de conexión deseadas a la lista blanca de la base de datos de mongo
 
+### **Enlace a la app con flutter**
+
+[**Flutter Chat app**](https://github.com/CrisMEDev/Flutter-ChatApp)
+
 ### **Documentación usada**
 
 [Express](https://www.npmjs.com/package/express)
